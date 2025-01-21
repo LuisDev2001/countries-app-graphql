@@ -67,7 +67,7 @@ export function HomeView() {
   if (isLoadingCountries || isLoadingContinents) return <p>Loading...</p>
   if (errorCountries || errorContinents) return <p>Error: {errorCountries?.message ?? errorContinents?.message}</p>
 
-  return <>
+  return <div className='space-y-6 w-full'>
     <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
       Welcome to my Country App
     </h1>
@@ -77,5 +77,5 @@ export function HomeView() {
       continentList={continents}
       currencies={currencies}
     />
-  </>
+  </div>
 }

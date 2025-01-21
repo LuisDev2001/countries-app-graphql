@@ -63,7 +63,7 @@ export function CountriesDataTable<TData, TValue>({
 
   return (
     <>
-      <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-4 items-center lg:max-w-4xl">
+      <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
         <Input
           placeholder="Filter countries..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -73,43 +73,61 @@ export function CountriesDataTable<TData, TValue>({
           className="w-full lg:max-w-sm"
         />
 
-        <Select
-          value={(table.getColumn("continent_name")?.getFilterValue() as string) ?? ""}
-          onValueChange={(value) => {
-            table.getColumn('continent_name')?.setFilterValue(value)
-          }}
+        <div
+          className={`grid justify-end gap-4 ${
+            table.getColumn("continent_name")?.getFilterValue() || table.getColumn("currency")?.getFilterValue()
+              ? 'grid-cols-[auto,150px,150px]'
+              : 'grid-cols-[150px,150px]'
+          }`}
         >
-          <SelectTrigger className="h-9">
-            <SelectValue placeholder="Select a continent to filter" />
-          </SelectTrigger>
-          <SelectContent side="top">
-            {continentList.map((continent) => (
-              <SelectItem key={continent.code} value={`${continent.name}`}>
-                {continent.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          {
+            table.getColumn("continent_name")?.getFilterValue() || table.getColumn("currency")?.getFilterValue()
+              ? (
+                <Button variant="ghost" onClick={() => table.resetColumnFilters()}>
+                  Clear filters
+                </Button>
+              )
+              : null
+          }
 
-        <Select
-          value={(table.getColumn("currency")?.getFilterValue() as string) ?? ""}
-          onValueChange={(value) => {
-            table.getColumn('currency')?.setFilterValue(value)
-          }}
-        >
-          <SelectTrigger className="h-9">
-            <SelectValue placeholder="Select a currency to filter" />
-          </SelectTrigger>
-          <SelectContent side="top">
-            {currencies.map((currency) => (
-              <SelectItem key={currency} value={`${currency}`}>
-                {currency}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          <Select
+            value={(table.getColumn("continent_name")?.getFilterValue() as string) ?? ""}
+            onValueChange={(value) => {
+              table.getColumn('continent_name')?.setFilterValue(value)
+            }}
+          >
+            <SelectTrigger className="h-9">
+              <SelectValue placeholder="Select continent" />
+            </SelectTrigger>
+            <SelectContent side="top">
+              {continentList.map((continent) => (
+                <SelectItem key={continent.code} value={`${continent.name}`}>
+                  {continent.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select
+            value={(table.getColumn("currency")?.getFilterValue() as string) ?? ""}
+            onValueChange={(value) => {
+              table.getColumn('currency')?.setFilterValue(value)
+            }}
+          >
+            <SelectTrigger className="h-9">
+              <SelectValue placeholder="Select currency" />
+            </SelectTrigger>
+            <SelectContent side="top">
+              {currencies.map((currency) => (
+                <SelectItem key={currency} value={`${currency}`}>
+                  {currency}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
-      <div className="rounded-md border w-full lg:max-w-4xl">
+      <div className="rounded-md border w-full">
         <div className="border-b">
           <Table>
             <TableHeader>

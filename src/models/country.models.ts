@@ -1,28 +1,37 @@
-export interface CountryResponse {
+// Get Countries Response
+export interface GetCountriesResponse {
   countries: Country[];
 }
 
 export interface Country {
-  code:       string;
-  name:       string;
-  capital:    null | string;
-  currency:   null | string;
-  currencies:  string[];
-  continent:  Continent;
-  languages:  Continent[];
-  __typename: CountryTypename;
+  code: string;
+  name: string;
+  capital?: string | null;
+  currency?: string | null;
+  currencies?: string[];
+  continent: Continent;
+  languages: Language[];
 }
 
-export enum CountryTypename {
-  Country = "Country",
+// Get Country Response
+export interface GetCountryResponse {
+  country: CountryDetail;
+}
+
+export interface CountryDetail {
+  code: string;
+  name: string;
+  capital?: string | null;
+  currency?: string | null;
+  continent: Continent;
+  languages: Language[];
 }
 
 export interface Continent {
-  name:       string;
-  __typename: ContinentTypename;
+  name: string;
 }
 
-export enum ContinentTypename {
-  Continent = "Continent",
-  Language = "Language",
+export interface Language {
+  name: string;
+  native: string;
 }
