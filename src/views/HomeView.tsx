@@ -6,6 +6,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { Input } from '@/components/ui/input'
 import { CountryDataTable } from '@/components/CountryDataTable'
 
 import type { ColumnDef } from '@tanstack/react-table'
@@ -23,6 +24,10 @@ const columns: ColumnDef<Columns>[] = [
   {
     accessorKey: 'continentName',
     header: 'Continent',
+  },
+  {
+    accessorKey: 'currency',
+    header: 'Currency',
   },
   {
     accessorKey: 'actions',
@@ -55,12 +60,14 @@ const data = [
     code: 'US',
     name: 'United States',
     continentName: 'North America',
+    currency: 'USD',
     actions: 'Edit Delete',
   },
   {
     code: 'CA',
     name: 'Canada',
     continentName: 'North America',
+    currency: 'CAD',
     actions: 'Edit Delete',
   },
 ]
@@ -70,6 +77,12 @@ export function HomeView() {
     <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
       Welcome to my Country App
     </h1>
+    <div className="w-full flex items-center py-4 lg:max-w-4xl">
+      <Input
+        placeholder="Filter countries..."
+        className="max-w-sm"
+      />
+    </div>
     <CountryDataTable columns={columns} data={data} />
   </>
 }

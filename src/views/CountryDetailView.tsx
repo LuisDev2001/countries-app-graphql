@@ -12,10 +12,8 @@ export function CountryDetailView() {
     name: 'United States',
     capital: 'Washington, D.C.',
     currency: 'USD',
-    phone: '+1',
     continent: { name: 'North America' },
-    states: [{ name: 'California' }, { name: 'Texas' }],
-    subdivisions: [{ name: 'Pacific' }, { name: 'Mountain' }],
+    languages: [{ name: 'English' }, { name: 'Spanish' }],
   }
 
   return (
@@ -36,28 +34,15 @@ export function CountryDetailView() {
           <p><strong>Code:</strong> {country.code}</p>
           <p><strong>Capital:</strong> {country.capital}</p>
           <p><strong>Currency:</strong> {country.currency}</p>
-          <p><strong>Phone:</strong> {country.phone}</p>
           <p><strong>Continent:</strong> {country.continent.name}</p>
         </div>
         <div>
           <h2 className="scroll-m-20 mb-4 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-            States
+            Languages
           </h2>
-
           <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
-            {country.states.map((state, index) => (
-              <li key={index}>{state.name}</li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h2 className="scroll-m-20 mb-4 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-            Subdivisions
-          </h2>
-
-          <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
-            {country.subdivisions.map((subdivision, index) => (
-              <li key={index}>{subdivision.name}</li>
+            {country.languages.map((language, index) => (
+              <li key={index}>{language.name}</li>
             ))}
           </ul>
         </div>
