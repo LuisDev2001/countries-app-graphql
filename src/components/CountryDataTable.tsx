@@ -29,7 +29,7 @@ export function CountryDataTable<TData, TValue>({
   })
 
   return (
-    <div className="rounded-md border w-full lg:max-w-3xl">
+    <div className="rounded-md border w-full lg:max-w-4xl">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
