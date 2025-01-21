@@ -40,7 +40,7 @@ importers:
         version: 5.0.3(@types/react@18.3.18)(react@18.3.1)(use-sync-external-store@1.4.0(react@18.3.1))
     devDependencies:
       '@eslint/js':
-        specifier: ^9.17.0
+        specifier: ^9.18.0
         version: 9.18.0
       '@tanstack/router-devtools':
         specifier: ^1.97.3
@@ -67,10 +67,10 @@ importers:
         specifier: ^9.17.0
         version: 9.18.0(jiti@1.21.7)
       eslint-plugin-react-hooks:
-        specifier: ^5.0.0
+        specifier: ^5.1.0
         version: 5.1.0(eslint@9.18.0(jiti@1.21.7))
       eslint-plugin-react-refresh:
-        specifier: ^0.4.16
+        specifier: ^0.4.18
         version: 0.4.18(eslint@9.18.0(jiti@1.21.7))
       globals:
         specifier: ^15.14.0
@@ -82,13 +82,13 @@ importers:
         specifier: ^3.4.17
         version: 3.4.17
       typescript:
-        specifier: ~5.6.2
+        specifier: ~5.6.3
         version: 5.6.3
       typescript-eslint:
-        specifier: ^8.18.2
+        specifier: ^8.21.0
         version: 8.21.0(eslint@9.18.0(jiti@1.21.7))(typescript@5.6.3)
       vite:
-        specifier: ^6.0.5
+        specifier: ^6.0.10
         version: 6.0.10(@types/node@22.10.7)(jiti@1.21.7)(tsx@4.19.2)(yaml@2.7.0)
 
 packages:
