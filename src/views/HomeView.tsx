@@ -7,6 +7,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { CountriesDataTable } from '@/components/CountriesDataTable'
+import { LoaderFullScreen } from '@/components/LoaderFullScreen'
 import useCountries from '@/hooks/useCountries'
 import useContinents from '@/hooks/useContinents'
 
@@ -64,7 +65,7 @@ export function HomeView() {
   const { countries, isLoadingCountries, errorCountries, currencies } = useCountries()
   const { continents, isLoadingContinents, errorContinents } = useContinents()
 
-  if (isLoadingCountries || isLoadingContinents) return <p>Loading...</p>
+  if (isLoadingCountries || isLoadingContinents) return <LoaderFullScreen text='Loading information...' />
   if (errorCountries || errorContinents) return <p>Error: {errorCountries?.message ?? errorContinents?.message}</p>
 
   return <div className='space-y-6 w-full'>

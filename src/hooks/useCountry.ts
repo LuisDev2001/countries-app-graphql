@@ -10,7 +10,7 @@ const useCountry = (countryCode: string) => {
 
   return {
     getCountry,
-    loading,
+    isLoading: loading,
     country: data?.country
   }
 }

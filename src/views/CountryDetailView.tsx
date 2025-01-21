@@ -1,19 +1,22 @@
 
-import { getRouteApi, Link } from '@tanstack/react-router'
-import { ChevronLeft } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import useCountry from '@/hooks/useCountry'
 import { useEffect } from 'react'
+import { ChevronLeft } from 'lucide-react'
+import { getRouteApi, Link } from '@tanstack/react-router'
+import { Button } from '@/components/ui/button'
+import { LoaderFullScreen } from '@/components/LoaderFullScreen'
+import useCountry from '@/hooks/useCountry'
 
 const routeApi = getRouteApi('/country/$countryId')
 
 export function CountryDetailView() {
   const { countryId } = routeApi.useParams()
-  const { getCountry, country } = useCountry(countryId)
+  const { getCountry, country, isLoading } = useCountry(countryId)
 
   useEffect(() => {
     getCountry()
   }, [countryId, getCountry])
+
+  if (isLoading) return <LoaderFullScreen text='Loading Country details...' />
 
   return (
     <div className="container mx-auto p-4">
