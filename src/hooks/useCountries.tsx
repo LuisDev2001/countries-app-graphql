@@ -1,11 +1,13 @@
+import { useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import { GET_COUNTRIES } from '@/queries/getCountries.query'
 import { useCurrencyStore } from '@/stores/currency.store'
+import { columns } from '@/components/CountryTableColumns'
 import type { GetCountriesResponse } from '@/models/country.models'
-import { useEffect } from 'react'
 
 const useCountries = () => {
   const { data, loading, error } = useQuery<GetCountriesResponse>(GET_COUNTRIES)
+
   const updateCurrencies = useCurrencyStore((state) => state.updateCurrencies)
   const currencies = useCurrencyStore((state) => state.currencies)
 
@@ -25,7 +27,8 @@ const useCountries = () => {
     countries: data?.countries || [],
     isLoadingCountries: loading,
     errorCountries: error,
-    currencies
+    currencies,
+    columns
   }
 }
 
