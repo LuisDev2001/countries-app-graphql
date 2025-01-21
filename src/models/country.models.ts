@@ -7,6 +7,7 @@ export interface Country {
   name:       string;
   capital:    null | string;
   currency:   null | string;
+  currencies:  string[];
   continent:  Continent;
   languages:  Continent[];
   __typename: CountryTypename;

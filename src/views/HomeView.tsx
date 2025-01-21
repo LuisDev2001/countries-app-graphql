@@ -61,7 +61,7 @@ const columns: ColumnDef<Country>[] = [
 ]
 
 export function HomeView() {
-  const { countries, isLoadingCountries, errorCountries } = useCountries()
+  const { countries, isLoadingCountries, errorCountries, currencies } = useCountries()
   const { continents, isLoadingContinents, errorContinents } = useContinents()
 
   if (isLoadingCountries || isLoadingContinents) return <p>Loading...</p>
@@ -75,6 +75,7 @@ export function HomeView() {
       columns={columns}
       data={countries}
       continentList={continents}
+      currencies={currencies}
     />
   </>
 }

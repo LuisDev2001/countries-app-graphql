@@ -35,14 +35,16 @@ import type { Continent } from '@/models/continent.models'
 
 export interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
-  data: TData[]
   continentList: Continent[]
+  currencies: string[]
+  data: TData[]
 }
 
 export function CountriesDataTable<TData, TValue>({
   columns,
+  continentList,
+  currencies,
   data,
-  continentList
 }: DataTableProps<TData, TValue>){
 
   const [columnFilters, setColumnsFilters] = useState<ColumnFiltersState>([])
@@ -61,14 +63,14 @@ export function CountriesDataTable<TData, TValue>({
 
   return (
     <>
-      <div className="w-full flex items-center lg:max-w-4xl">
+      <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-4 items-center lg:max-w-4xl">
         <Input
           placeholder="Filter countries..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="w-full lg:max-w-sm"
         />
 
         <Select
@@ -84,6 +86,24 @@ export function CountriesDataTable<TData, TValue>({
             {continentList.map((continent) => (
               <SelectItem key={continent.code} value={`${continent.name}`}>
                 {continent.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Select
+          value={(table.getColumn("currency")?.getFilterValue() as string) ?? ""}
+          onValueChange={(value) => {
+            table.getColumn('currency')?.setFilterValue(value)
+          }}
+        >
+          <SelectTrigger className="h-9">
+            <SelectValue placeholder="Select a currency to filter" />
+          </SelectTrigger>
+          <SelectContent side="top">
+            {currencies.map((currency) => (
+              <SelectItem key={currency} value={`${currency}`}>
+                {currency}
               </SelectItem>
             ))}
           </SelectContent>
