@@ -1,8 +1,11 @@
+import { useState } from 'react'
 import {
+  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
   useReactTable,
-  getPaginationRowModel
 } from "@tanstack/react-table"
 import {
   Table,
@@ -18,6 +21,7 @@ import {
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react"
+import { Input } from '@/components/ui/input'
 import { Button } from "@/components/ui/button"
 import {
   Select,
@@ -37,15 +41,33 @@ export function CountriesDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>){
+
+  const [columnFilters, setColumnsFilters] = useState<ColumnFiltersState>([])
+
   const table = useReactTable({
     columns,
     data,
+    onColumnFiltersChange: setColumnsFilters,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    state: {
+      columnFilters,
+    }
   })
 
   return (
     <>
+      <div className="w-full flex items-center lg:max-w-4xl">
+        <Input
+          placeholder="Filter countries..."
+          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("name")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+      </div>
       <div className="rounded-md border w-full lg:max-w-4xl">
         <div className="border-b">
           <Table>

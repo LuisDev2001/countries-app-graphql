@@ -7,8 +7,8 @@ const useCountries = () => {
 
   return {
     countries: data?.countries || [],
-    loading,
-    error,
+    isLoadingCountries: loading,
+    errorCountries: error,
   }
 }
 

@@ -6,7 +6,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { Input } from '@/components/ui/input'
 import { CountriesDataTable } from '@/components/CountriesDataTable'
 import useCountries from '@/hooks/useCountries'
 
@@ -61,21 +60,15 @@ const columns: ColumnDef<Country>[] = [
 ]
 
 export function HomeView() {
-  const { countries, loading, error } = useCountries()
+  const { countries, isLoadingCountries, errorCountries } = useCountries()
 
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>Error: {error.message}</p>
+  if (isLoadingCountries) return <p>Loading...</p>
+  if (errorCountries) return <p>Error: {errorCountries.message}</p>
 
   return <>
     <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
       Welcome to my Country App
     </h1>
-    <div className="w-full flex items-center py-4 lg:max-w-4xl">
-      <Input
-        placeholder="Filter countries..."
-        className="max-w-sm"
-      />
-    </div>
     <CountriesDataTable
       columns={columns}
       data={countries}
