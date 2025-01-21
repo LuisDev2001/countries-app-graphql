@@ -31,15 +31,18 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import type { ColumnDef } from '@tanstack/react-table'
+import type { Continent } from '@/models/continent.models'
 
 export interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  continentList: Continent[]
 }
 
 export function CountriesDataTable<TData, TValue>({
   columns,
   data,
+  continentList
 }: DataTableProps<TData, TValue>){
 
   const [columnFilters, setColumnsFilters] = useState<ColumnFiltersState>([])
@@ -67,6 +70,24 @@ export function CountriesDataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
+
+        <Select
+          value={(table.getColumn("continent_name")?.getFilterValue() as string) ?? ""}
+          onValueChange={(value) => {
+            table.getColumn('continent_name')?.setFilterValue(value)
+          }}
+        >
+          <SelectTrigger className="h-9">
+            <SelectValue placeholder="Select a continent to filter" />
+          </SelectTrigger>
+          <SelectContent side="top">
+            {continentList.map((continent) => (
+              <SelectItem key={continent.code} value={`${continent.name}`}>
+                {continent.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
       <div className="rounded-md border w-full lg:max-w-4xl">
         <div className="border-b">

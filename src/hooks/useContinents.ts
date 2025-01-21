@@ -6,7 +6,7 @@ const useContinent = () => {
   const { data, loading, error } = useQuery<CountinentResponse>(GET_CONTINENTS)
 
   return {
-    continents: data?.continents,
+    continents: data?.continents || [],
     isLoadingContinents: loading,
     errorContinents: error,
   }
