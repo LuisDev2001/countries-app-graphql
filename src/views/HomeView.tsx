@@ -7,12 +7,13 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { Input } from '@/components/ui/input'
-import { CountryDataTable } from '@/components/CountryDataTable'
+import { CountriesDataTable } from '@/components/CountriesDataTable'
+import useCountries from '@/hooks/useCountries'
 
 import type { ColumnDef } from '@tanstack/react-table'
-import type { Columns } from '@/models/country.table.models'
+import type { Country } from '@/models/country.models'
 
-const columns: ColumnDef<Columns>[] = [
+const columns: ColumnDef<Country>[] = [
   {
     accessorKey: 'code',
     header: 'Code',
@@ -22,15 +23,19 @@ const columns: ColumnDef<Columns>[] = [
     header: 'Name',
   },
   {
-    accessorKey: 'continentName',
+    accessorKey: 'continent.name',
     header: 'Continent',
   },
   {
     accessorKey: 'currency',
     header: 'Currency',
+    cell: ({ row }) => {
+      const currency = row.getValue('currency')
+      return currency || '-'
+    }
   },
   {
-    accessorKey: 'actions',
+    id: 'actions',
     header: '',
     cell: ({ row }) => {
       const data = row.original
@@ -55,24 +60,12 @@ const columns: ColumnDef<Columns>[] = [
   },
 ]
 
-const data = [
-  {
-    code: 'US',
-    name: 'United States',
-    continentName: 'North America',
-    currency: 'USD',
-    actions: 'Edit Delete',
-  },
-  {
-    code: 'CA',
-    name: 'Canada',
-    continentName: 'North America',
-    currency: 'CAD',
-    actions: 'Edit Delete',
-  },
-]
-
 export function HomeView() {
+  const { countries, loading, error } = useCountries()
+
+  if (loading) return <p>Loading...</p>
+  if (error) return <p>Error: {error.message}</p>
+
   return <>
     <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
       Welcome to my Country App
@@ -83,6 +76,9 @@ export function HomeView() {
         className="max-w-sm"
       />
     </div>
-    <CountryDataTable columns={columns} data={data} />
+    <CountriesDataTable
+      columns={columns}
+      data={countries}
+    />
   </>
 }
