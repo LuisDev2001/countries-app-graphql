@@ -17,8 +17,7 @@ export default tseslint.config(
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-      ...reactPlugin.configs.flat,
-      ...reactPlugin.configs['jsx-runtime']
+      reactPlugin
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -26,6 +25,8 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      ...reactPlugin.configs.flat.rules,
+      ...reactPlugin.configs['jsx-runtime'].rules,
     },
   },
 )
