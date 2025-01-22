@@ -19,7 +19,7 @@ export function HomeView() {
 
   return <div className='space-y-6 w-full'>
     <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-      Welcome to my Country App
+      Country List App
     </h1>
     <CountriesDataTable
       columns={columns}

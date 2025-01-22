@@ -77,7 +77,7 @@ export function CountriesDataTable<TData, TValue>({
           className={`grid justify-end gap-4 ${
             table.getColumn("continent_name")?.getFilterValue() || table.getColumn("currency")?.getFilterValue()
               ? 'grid-cols-[auto,150px,150px]'
-              : 'grid-cols-[150px,150px]'
+              : 'grid-cols-2 lg:grid-cols-[150px,150px]'
           }`}
         >
           {
