@@ -1,5 +1,5 @@
+import { lazy, Suspense } from 'react'
 import { createRootRoute } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import { MainLayout } from '@/layouts/MainLayout'
 import { NotFoundView } from '@/views/NotFoundView'
 
@@ -8,11 +8,22 @@ export const Route = createRootRoute({
   notFoundComponent: NotFoundView,
 })
 
+const TanStackRouterDevtools =
+  process.env.NODE_ENV === 'production'
+    ? () => null
+    : lazy(() =>
+        import('@tanstack/router-devtools').then((res) => ({
+          default: res.TanStackRouterDevtools,
+        })),
+      )
+
 function RootComponent() {
   return (
     <>
       <MainLayout />
-      <TanStackRouterDevtools />
+      <Suspense>
+        <TanStackRouterDevtools />
+      </Suspense>
     </>
   )
 }
