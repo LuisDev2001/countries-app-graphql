@@ -74,29 +74,19 @@ export function CountriesDataTable<TData, TValue>({
         />
 
         <div
-          className={`grid justify-end gap-4 ${
+          className={`grid justify-end gap-4 grid-cols-2 ${
             table.getColumn("continent_name")?.getFilterValue() || table.getColumn("currency")?.getFilterValue()
-              ? 'grid-cols-[auto,150px,150px]'
-              : 'grid-cols-2 lg:grid-cols-[150px,150px]'
+              ? 'lg:grid-cols-[150px,150px,auto]'
+              : 'lg:grid-cols-[150px,150px]'
           }`}
         >
-          {
-            table.getColumn("continent_name")?.getFilterValue() || table.getColumn("currency")?.getFilterValue()
-              ? (
-                <Button variant="ghost" onClick={() => table.resetColumnFilters()}>
-                  Clear filters
-                </Button>
-              )
-              : null
-          }
-
           <Select
             value={(table.getColumn("continent_name")?.getFilterValue() as string) ?? ""}
             onValueChange={(value) => {
               table.getColumn('continent_name')?.setFilterValue(value)
             }}
           >
-            <SelectTrigger className="h-9">
+            <SelectTrigger className="h-9 row-start-1">
               <SelectValue placeholder="Select continent" />
             </SelectTrigger>
             <SelectContent side="top">
@@ -114,7 +104,7 @@ export function CountriesDataTable<TData, TValue>({
               table.getColumn('currency')?.setFilterValue(value)
             }}
           >
-            <SelectTrigger className="h-9">
+            <SelectTrigger className="h-9 row-start-1">
               <SelectValue placeholder="Select currency" />
             </SelectTrigger>
             <SelectContent side="top">
@@ -125,6 +115,20 @@ export function CountriesDataTable<TData, TValue>({
               ))}
             </SelectContent>
           </Select>
+
+          {
+            table.getColumn("continent_name")?.getFilterValue() || table.getColumn("currency")?.getFilterValue()
+              ? (
+                <Button
+                  variant="ghost"
+                  className="col-start-1 col-end-3 lg:col-auto"
+                  onClick={() => table.resetColumnFilters()}
+                >
+                  Clear filters
+                </Button>
+              )
+              : null
+          }
         </div>
       </div>
       <div className="rounded-md border w-full">
